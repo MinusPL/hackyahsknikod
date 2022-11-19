@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class PlayerHoldingItems : PlayerComponent
 {
-    public GameObject TorchItem;
+    [SerializeField] private GameObject torchItem;
+
     /// <summary>
     /// add prefab here
     ///</summary>
-    public GameObject LeavesItem;
+    [SerializeField] private GameObject leavesPrefab;
 
-    bool torchAvaliable;
-    bool leavesAvaliable;
+    bool torchAvaliable => PI.torches_amount > 0;
+    bool leavesAvaliable => PI.leaves_amount >= 5;
 
     PlayerInventory PI;
     private void Start()
@@ -23,17 +24,6 @@ public class PlayerHoldingItems : PlayerComponent
     }
     void Update()
     {
-        #region bool
-        if (PI.torches_amount > 0)
-            torchAvaliable= true;
-        else
-            torchAvaliable= false;
-
-        if (PI.leaves_amount > 0)
-            leavesAvaliable = true;
-        else
-            leavesAvaliable = false;
-        #endregion
 
         #region holding
 
@@ -41,11 +31,21 @@ public class PlayerHoldingItems : PlayerComponent
         {
             if (Input.GetKeyUp("f"))
             {
-                // toggle torch
-                TorchItem.SetActive(!TorchItem.activeInHierarchy);
+                // use torch
+                
             }
         }
-        else TorchItem.SetActive(false);
+
+        if(leavesAvaliable){
+            if (Input.GetMouseButtonUp(0))
+            {
+                // throw leaves
+                var leaves = Instantiate(leavesPrefab, transform.position + Vector3.up + transform.forward * 1.6f, transform.rotation);
+                leaves.GetComponent<Rigidbody>().velocity = 10 * transform.forward;
+                player.Inventory.leaves_amount -= 5;
+            }
+        }
+        else torchItem.SetActive(false);
         #endregion
     }
 }
