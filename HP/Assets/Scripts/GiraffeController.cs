@@ -8,6 +8,7 @@ public enum GiraffeState
     IDLE,
     WANDER,
     WANDER_TARGET,
+    NOTICE_TARGET,
     TARGET,
     EAT
 }
@@ -35,17 +36,29 @@ public class GiraffeController : MonoBehaviour
     [SerializeField]
     private float eatingTime = 10;
     [SerializeField]
-    private float wanderRadius = 10.0f;
+    private float minWanderRadius = 10.0f;
+    [SerializeField]
+    private float maxWanderRadius = 30.0f;
     [SerializeField]
     private float minSeekTime = 15f;
     [SerializeField]
     private float maxSeekTime = 90f;
     [SerializeField]
     private float maxSeekDistance = 50f;
+    [SerializeField]
+    private float slowSpeed = 3.0f;
+    [SerializeField]
+    private float normalSpeed = 5.0f;
+    [SerializeField]
+    private float chargeSpeed = 7.0f;
+    [SerializeField]
+    private float chargeTime = 1.0f;
 
 
-    public float T1 = 0;
-    public float T2 = 0;
+    private float T1 = 0;
+    private float T2 = 0;
+    private float T3 = 0;
+    private float T4 = 0;
 
 
     GameObject player;
@@ -63,27 +76,36 @@ public class GiraffeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float speed = normalSpeed;
         switch(state)
         {
             case GiraffeState.IDLE:
                 if (target == null) state = GiraffeState.WANDER_TARGET;
-                else state = GiraffeState.TARGET;
+                else
+                {
+                    T4 = chargeTime;
+                    state = GiraffeState.NOTICE_TARGET;
+                }
                 break;
             case GiraffeState.WANDER_TARGET:
-                Vector2 rpos = Random.insideUnitCircle * wanderRadius;
+                Vector2 rpos = Random.insideUnitCircle.normalized * Random.Range(minWanderRadius, maxWanderRadius);
                 navAgent.destination = transform.position + new Vector3(rpos.x, 0f, rpos.y);
                 state = GiraffeState.WANDER;
                 break;
             case GiraffeState.WANDER:
                 if (target != null)
                 {
-                    state = GiraffeState.TARGET;
+                    state = GiraffeState.NOTICE_TARGET;
                 }
                 else if (target == null && Vector3.Distance(new Vector3(transform.position.x, 0f, transform.position.z), new Vector3(navAgent.destination.x, 0f, navAgent.destination.z)) < 0.1f)
                 {
                     state = GiraffeState.WANDER_TARGET;
                 }
                 //Debug.Log(Vector3.Distance(transform.position, navAgent.destination));
+                break;
+            case GiraffeState.NOTICE_TARGET:
+                speed = chargeSpeed;
+                if (T4 <= 0f) state = GiraffeState.TARGET;
                 break;
             case GiraffeState.TARGET:
                 if (target == null) state = GiraffeState.WANDER_TARGET;
@@ -108,24 +130,37 @@ public class GiraffeController : MonoBehaviour
                 break;
         }
 
-        if (T1 > 0) T1 -= Time.deltaTime;
+        if (T1 > 0f) T1 -= Time.deltaTime;
 
-        if (T2 > 0) T2 -= Time.deltaTime;
-        else
+        if (player != null && player.activeSelf)
         {
-            navAgent.destination = player.transform.position;
+            if (T2 > 0f) T2 -= Time.deltaTime;
+            else
+            {
+                navAgent.destination = player.transform.position;
 
-            float newSeekTime = Mathf.Lerp(minSeekTime, maxSeekTime, (Vector3.Distance(transform.position, player.transform.position) - viewDistance) / (maxSeekDistance - viewDistance));
-            T2 = newSeekTime;
-            state = GiraffeState.WANDER;
+                float newSeekTime = Mathf.Lerp(minSeekTime, maxSeekTime, (Vector3.Distance(transform.position, player.transform.position) - viewDistance) / (maxSeekDistance - viewDistance));
+                T2 = newSeekTime;
+                state = GiraffeState.WANDER;
+            }
         }
 
+        if (T3 > 0f)
+        {
+            T3 -= Time.deltaTime;
+            speed = slowSpeed;
+        }
+    
 
         if (target != null && target.CompareTag("Player") && Vector3.Distance(target.transform.position, transform.position) > viewDistance)
         {
             lastTargetPos = target.transform.position;
             target = null;
         }
+
+        if (T4 > 0) T4 -= Time.deltaTime;
+
+        navAgent.speed = speed;
 
     }
 
@@ -165,5 +200,10 @@ public class GiraffeController : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, transform.position + (player.transform.position - transform.position).normalized * 20f);
         }
+    }
+
+    public void SetSlowDebuff(float time)
+    {
+        T3 = time;
     }
 }
