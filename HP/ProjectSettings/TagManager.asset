@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Collectable
   - Leaf
+  - Giraffe
   layers:
   - Default
   - TransparentFX
