@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHoldingItems : MonoBehaviour
+public class PlayerHoldingItems : PlayerComponent
 {
     public GameObject TorchItem;
+    /// <summary>
+    /// add prefab here
+    ///</summary>
     public GameObject LeavesItem;
 
     bool torchAvaliable;
@@ -35,11 +38,14 @@ public class PlayerHoldingItems : MonoBehaviour
         #region holding
 
         if (torchAvaliable)
-            if (Input.GetKey("f"))
+        {
+            if (Input.GetKeyUp("f"))
             {
-
+                // toggle torch
+                TorchItem.SetActive(!TorchItem.activeInHierarchy);
             }
-
+        }
+        else TorchItem.SetActive(false);
         #endregion
     }
 }

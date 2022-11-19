@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory : PlayerComponent
 { 
     public int red_frog_amount = 0;
     public int blue_frog_amount = 0;
