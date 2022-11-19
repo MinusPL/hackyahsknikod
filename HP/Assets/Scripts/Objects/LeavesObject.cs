@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class LeavesObject : ObjectBehaviour
+public class LeavesObject : MonoBehaviour
 {
     [SerializeField] Rigidbody rb;
     [SerializeField] BoxCollider collider;

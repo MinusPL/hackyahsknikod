@@ -287,6 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement: {fileID: 2734210209120680816}
+  inventory: {fileID: 968068399987614561}
 --- !u!54 &1533199988997750477
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -315,8 +316,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5299939bcffb09144aa2439bb8b65485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TorchItem: {fileID: 9104994472042000143}
-  LeavesItem: {fileID: 0}
+  torchItem: {fileID: 4421849916974235607}
+  leavesPrefab: {fileID: 508623467477070969, guid: 0284af7fe5b2f2a42bbf0a5bb1740afb,
+    type: 3}
+  throwStrength: 10
+  leavesRequired: 5
 --- !u!114 &968068399987614561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,8 +336,8 @@ MonoBehaviour:
   red_frog_amount: 0
   blue_frog_amount: 0
   green_frog_amount: 0
-  torches_amount: 1
-  leaves_amount: 0
+  torches_amount: 10
+  leaves_amount: 5
 --- !u!1 &2734210209611100449
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,6 +612,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4702503340163859560}
+  - component: {fileID: 4421849916974235607}
   m_Layer: 0
   m_Name: Torch
   m_TagString: Untagged
@@ -632,3 +637,20 @@ Transform:
   m_Father: {fileID: 2734210209120680818}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4421849916974235607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9104994472042000143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2febfd82723ceef43922ca631c24050d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  torchLight: {fileID: 2150700361060678893}
+  initLifeTime: 30
+  flickerSpeed: 2
+  fadeOutTime: 5
+  litOnStart: 1

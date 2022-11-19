@@ -4,24 +4,18 @@ using UnityEngine;
 
 public class PlayerHoldingItems : PlayerComponent
 {
-    [SerializeField] private GameObject torchItem;
+    [SerializeField] private TorchBehaviour torchItem;
 
     /// <summary>
     /// add prefab here
     ///</summary>
     [SerializeField] private GameObject leavesPrefab;
 
-    bool torchAvaliable => PI.torches_amount > 0;
-    bool leavesAvaliable => PI.leaves_amount >= 5;
+    [SerializeField] private float throwStrength;
+    [SerializeField] private int leavesRequired;
 
-    PlayerInventory PI;
-    private void Start()
-    {
-        if (!GetComponent<PlayerInventory>())
-            Debug.Log("No 'PlayerPickup' Script!");
-        else
-            PI = GetComponent<PlayerInventory>();
-    }
+    bool torchAvaliable => player.Inventory.torches_amount > 0;
+    bool leavesAvaliable => player.Inventory.leaves_amount >= leavesRequired;
     void Update()
     {
 
@@ -32,7 +26,14 @@ public class PlayerHoldingItems : PlayerComponent
             if (Input.GetKeyUp("f"))
             {
                 // use torch
-                
+                if (torchItem.isLit)
+                {
+                    torchItem.Extinguish();
+                }
+                else {
+                    torchItem.Ignite();
+                    player.Inventory.torches_amount--;
+                }
             }
         }
 
@@ -42,10 +43,9 @@ public class PlayerHoldingItems : PlayerComponent
                 // throw leaves
                 var leaves = Instantiate(leavesPrefab, transform.position + Vector3.up + transform.forward * 1.6f, transform.rotation);
                 leaves.GetComponent<Rigidbody>().velocity = 10 * transform.forward;
-                player.Inventory.leaves_amount -= 5;
+                player.Inventory.leaves_amount -= leavesRequired;
             }
         }
-        else torchItem.SetActive(false);
         #endregion
     }
 }

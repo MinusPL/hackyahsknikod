@@ -53,7 +53,6 @@ public class PlayerMovement : PlayerComponent
             pe.x = -90;
         }
         playerCamera.transform.eulerAngles = pe;
-        print(playerCamera.transform.eulerAngles.x);
     }
 
     private void Update()
@@ -66,7 +65,6 @@ public class PlayerMovement : PlayerComponent
         Rotate(axisMouseX, axisMouseY);
         Move(axisH, axisV);
 
-        print(sprintStamina);
         if (!(isSprinting && canSprint))
         {
             if (sprintStamina >= sprintMaxValue)
