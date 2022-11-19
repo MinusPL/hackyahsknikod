@@ -8,5 +8,7 @@ public enum Epickup
     GREEN_FROG = 0x01,
     BLUE_FROG = 0x02,
     TORCH = 0x03,
-    LEAVES = 0x04
+    LEAVES = 0x04,
+    TOTEM = 0x05,
+    POTION = 0x06
 }
