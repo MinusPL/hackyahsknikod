@@ -39,7 +39,7 @@ public class BasePlayer : MonoBehaviour
 
     IEnumerator GameOver()
     {
-        controlable = false;
+        GlobalManager.blockPlayerMovement = true;
         yield return new WaitForSeconds(3);
         if (inventory.hasTotem)
         {

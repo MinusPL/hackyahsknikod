@@ -63,10 +63,9 @@ public class PlayerMovement : PlayerComponent
             float axisV = Input.GetAxis("Vertical");
             float axisMouseX = Input.GetAxis("Mouse X");
             float axisMouseY = Input.GetAxis("Mouse Y");
-
-            Rotate(axisMouseX, axisMouseY);
             if (!GlobalManager.blockPlayerMovement)
             {
+                Rotate(axisMouseX, axisMouseY);
                 Move(axisH, axisV);
 
                 if (!(isSprinting && canSprint))
