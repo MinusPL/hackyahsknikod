@@ -24,6 +24,7 @@ public class PlayerMovement : PlayerComponent
     }
     void Move(float h, float v)
     {
+
         Vector3 moveDelta = (h * transform.right + v * transform.forward) * speed * Time.deltaTime;
         isSprinting = Input.GetKey(sprintKey) && v > 0;
         if (isSprinting && canSprint)
