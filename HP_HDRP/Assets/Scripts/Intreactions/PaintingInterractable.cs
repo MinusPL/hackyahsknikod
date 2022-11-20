@@ -11,12 +11,18 @@ public class PaintingInterractable : Interractable
     [SerializeField]
     int lockNumber = 1;
 
-    bool done = false;
+    public bool done {get; private set;}
+    public bool inProgress {get; private set;}
+
+    private void Awake() {
+        done = false;
+        inProgress = false;
+    }
 
     public override void Interract()
     {
         if (!done)
-        {
+        {   inProgress = true;
             done = true;
             GlobalManager.blockPlayerMovement = true;
             Invoke("Release", holdTime);
@@ -30,7 +36,8 @@ public class PaintingInterractable : Interractable
     }
 
     void Release()
-    {
+    {   
+        inProgress = false;
         GlobalManager.blockPlayerMovement = false;
         damaged.SetActive(true);
         GameObject.FindGameObjectWithTag("Door").GetComponent<DoorInterractable>().Unlock(lockNumber);
