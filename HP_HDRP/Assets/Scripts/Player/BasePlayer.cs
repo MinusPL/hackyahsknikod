@@ -9,7 +9,7 @@ public class BasePlayer : MonoBehaviour
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private Camera camera;
 
-    public bool controlable {get; private set;}
+    public bool controlable;
 
     GameObject giraffe;
 
