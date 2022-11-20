@@ -11,6 +11,10 @@ public class PlayerInventory : PlayerComponent
     public int torches_amount = 0;
     public int leaves_amount = 0;
 
+    public Vector3 respawnPos;
+
+    public bool hasTotem = false;
+
     void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Collectable")
@@ -31,6 +35,11 @@ public class PlayerInventory : PlayerComponent
                     break;
                 case Epickup.LEAVES:
                     leaves_amount++;
+                    break;
+                case Epickup.TOTEM:
+                    respawnPos = other.gameObject.GetComponent<TotemObject>().respawnPos;
+                    hasTotem = true;
+                    Destroy(other.gameObject);
                     break;
                 default:
                     break;

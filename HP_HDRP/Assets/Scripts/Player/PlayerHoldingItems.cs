@@ -20,30 +20,35 @@ public class PlayerHoldingItems : PlayerComponent
     {
 
         #region holding
-
-        if (torchAvaliable)
+        if (player.controlable)
         {
-            if (Input.GetKeyUp("f"))
+            if (torchAvaliable)
             {
-                // use torch
-                if (torchItem.isLit)
+                if (Input.GetKeyUp("f"))
                 {
-                    torchItem.Extinguish();
-                }
-                else {
-                    torchItem.Ignite();
-                    player.Inventory.torches_amount--;
+                    // use torch
+                    if (torchItem.isLit)
+                    {
+                        torchItem.Extinguish();
+                    }
+                    else {
+                        torchItem.Ignite();
+                        player.Inventory.torches_amount--;
+                    }
                 }
             }
-        }
-
-        if(leavesAvaliable){
-            if (Input.GetMouseButtonUp(0))
-            {
-                // throw leaves
-                var leaves = Instantiate(leavesPrefab, transform.position + Vector3.up + transform.forward * 1.6f, transform.rotation);
-                leaves.GetComponent<Rigidbody>().velocity = 10 * transform.forward;
-                player.Inventory.leaves_amount -= leavesRequired;
+    
+            if(leavesAvaliable){
+                if (Input.GetMouseButtonUp(0))
+                {
+                    if (Physics.Raycast(player.Camera.transform.position, transform.forward, out var hit, 2))
+                    // throw leaves
+                    {
+                        var leaves = Instantiate(leavesPrefab, transform.position + Vector3.up + transform.forward * 1.6f, transform.rotation);
+                        leaves.GetComponent<Rigidbody>().velocity = 10 * transform.forward;
+                        player.Inventory.leaves_amount -= leavesRequired;
+                    }
+                }
             }
         }
         #endregion

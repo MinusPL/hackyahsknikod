@@ -169,7 +169,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cc: {fileID: 2734210209120680829}
-  playerCamera: {fileID: 2734210209611100455}
   speed: 5
   mouseSensitivity: 4
   sprintSpeedMultiplier: 1.4
@@ -191,6 +190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {fileID: 2734210209120680816}
   inventory: {fileID: 968068399987614561}
+  camera: {fileID: 2734210209611100455}
 --- !u!54 &1533199988997750477
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -223,7 +223,7 @@ MonoBehaviour:
   leavesPrefab: {fileID: 508623467477070969, guid: 0284af7fe5b2f2a42bbf0a5bb1740afb,
     type: 3}
   throwStrength: 10
-  leavesRequired: 5
+  leavesRequired: 1
 --- !u!114 &968068399987614561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +241,7 @@ MonoBehaviour:
   green_frog_amount: 0
   torches_amount: 10
   leaves_amount: 5
+  totem: {fileID: 0}
 --- !u!1 &2734210209611100449
 GameObject:
   m_ObjectHideFlags: 0

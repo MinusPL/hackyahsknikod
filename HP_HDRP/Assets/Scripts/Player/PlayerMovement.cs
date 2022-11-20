@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerMovement : PlayerComponent
 {
     [SerializeField] private CharacterController cc;
-    [SerializeField] private Camera playerCamera;
     [SerializeField] private float speed;
     [SerializeField] private float mouseSensitivity;
     [SerializeField] private float sprintSpeedMultiplier;
@@ -42,7 +41,7 @@ public class PlayerMovement : PlayerComponent
     void Rotate(float dx, float dy)
     {
         transform.eulerAngles += new Vector3(0, dx * mouseSensitivity, 0);
-        var pe = playerCamera.transform.eulerAngles;
+        var pe = player.Camera.transform.eulerAngles;
         pe.x -= dy * mouseSensitivity;
         if (pe.x >= 90 && pe.x < 180)
         {
@@ -52,29 +51,35 @@ public class PlayerMovement : PlayerComponent
         {
             pe.x = -90;
         }
-        playerCamera.transform.eulerAngles = pe;
+        player.Camera.transform.eulerAngles = pe;
     }
 
     private void Update()
     {
-        float axisH = Input.GetAxis("Horizontal");
-        float axisV = Input.GetAxis("Vertical");
-        float axisMouseX = Input.GetAxis("Mouse X");
-        float axisMouseY = Input.GetAxis("Mouse Y");
-
-        Rotate(axisMouseX, axisMouseY);
-        Move(axisH, axisV);
-
-        if (!(isSprinting && canSprint))
+        if (!GlobalManager.pause)
         {
-            if (sprintStamina >= sprintMaxValue)
+            float axisH = Input.GetAxis("Horizontal");
+            float axisV = Input.GetAxis("Vertical");
+            float axisMouseX = Input.GetAxis("Mouse X");
+            float axisMouseY = Input.GetAxis("Mouse Y");
+
+            Rotate(axisMouseX, axisMouseY);
+            if (!GlobalManager.blockPlayerMovement)
             {
-                sprintStamina = sprintMaxValue;
-                if (!canSprint) canSprint = true;
-            } 
-            else
-            {
-                sprintStamina += sprintRegenRate * Time.deltaTime;
+                Move(axisH, axisV);
+
+                if (!(isSprinting && canSprint))
+                {
+                    if (sprintStamina >= sprintMaxValue)
+                    {
+                        sprintStamina = sprintMaxValue;
+                        if (!canSprint) canSprint = true;
+                    }
+                    else
+                    {
+                        sprintStamina += sprintRegenRate * Time.deltaTime;
+                    }
+                }
             }
         }
     }

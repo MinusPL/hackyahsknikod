@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,10 +21,12 @@ enum TargetType
 }
 
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(Animator))]
 public class GiraffeController : MonoBehaviour
 {
     GameObject target = null;
     NavMeshAgent navAgent = null;
+    Animator anim = null;
     private GiraffeState state = GiraffeState.IDLE;
     private TargetType type;
 
@@ -67,6 +70,7 @@ public class GiraffeController : MonoBehaviour
     void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         InvokeRepeating("FindTarget", 0.5f, seekTargetTime);
         state = GiraffeState.IDLE;
@@ -85,6 +89,7 @@ public class GiraffeController : MonoBehaviour
                 {
                     T4 = chargeTime;
                     state = GiraffeState.NOTICE_TARGET;
+                    anim.SetBool("Run", true);
                 }
                 break;
             case GiraffeState.WANDER_TARGET:
@@ -95,7 +100,9 @@ public class GiraffeController : MonoBehaviour
             case GiraffeState.WANDER:
                 if (target != null)
                 {
+                    T4 = chargeTime;
                     state = GiraffeState.NOTICE_TARGET;
+                    anim.SetBool("Run", true);
                 }
                 else if (target == null && Vector3.Distance(new Vector3(transform.position.x, 0f, transform.position.z), new Vector3(navAgent.destination.x, 0f, navAgent.destination.z)) < 0.1f)
                 {
@@ -105,7 +112,11 @@ public class GiraffeController : MonoBehaviour
                 break;
             case GiraffeState.NOTICE_TARGET:
                 speed = chargeSpeed;
-                if (T4 <= 0f) state = GiraffeState.TARGET;
+                if (T4 <= 0f)
+                {
+                    state = GiraffeState.TARGET;
+                    anim.SetBool("Run", false);
+                }
                 break;
             case GiraffeState.TARGET:
                 if (target == null) state = GiraffeState.WANDER_TARGET;

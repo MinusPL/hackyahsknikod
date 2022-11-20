@@ -10,7 +10,8 @@ public class JumpscareTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Player")
         {
-            OnActivate.Invoke();
+            if (other.GetComponent<BasePlayer>().jumpscareTimer < 0)
+                OnActivate.Invoke();
         }
     }
 }
