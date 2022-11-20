@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerMovement : PlayerComponent
 {
     [SerializeField] private CharacterController cc;
-    [SerializeField] private Camera playerCamera;
     [SerializeField] private float speed;
     [SerializeField] private float mouseSensitivity;
     [SerializeField] private float sprintSpeedMultiplier;
@@ -42,7 +41,7 @@ public class PlayerMovement : PlayerComponent
     void Rotate(float dx, float dy)
     {
         transform.eulerAngles += new Vector3(0, dx * mouseSensitivity, 0);
-        var pe = playerCamera.transform.eulerAngles;
+        var pe = player.Camera.transform.eulerAngles;
         pe.x -= dy * mouseSensitivity;
         if (pe.x >= 90 && pe.x < 180)
         {
@@ -52,7 +51,7 @@ public class PlayerMovement : PlayerComponent
         {
             pe.x = -90;
         }
-        playerCamera.transform.eulerAngles = pe;
+        player.Camera.transform.eulerAngles = pe;
     }
 
     private void Update()
