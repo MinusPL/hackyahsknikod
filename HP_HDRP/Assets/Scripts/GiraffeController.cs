@@ -57,6 +57,7 @@ public class GiraffeController : MonoBehaviour
     [SerializeField]
     private float chargeTime = 1.0f;
 
+    [SerializeField] SoundPool sounds;
 
     private float T1 = 0;
     private float T2 = 0;
@@ -75,6 +76,7 @@ public class GiraffeController : MonoBehaviour
         InvokeRepeating("FindTarget", 0.5f, seekTargetTime);
         state = GiraffeState.IDLE;
         T2 = maxSeekTime;
+        StartCoroutine(RandomSounds());
     }
 
     // Update is called once per frame
@@ -216,5 +218,31 @@ public class GiraffeController : MonoBehaviour
     public void SetSlowDebuff(float time)
     {
         T3 = time;
+    }
+
+    IEnumerator RandomSounds()
+    {
+        for(;;)
+        {
+            yield return new WaitForSeconds(10);
+            switch (state)
+            {
+                case GiraffeState.IDLE:
+                    sounds.PlayRandom(0, 4);
+                    break;
+                case GiraffeState.WANDER:
+                    sounds.PlayRandom(0, 4);
+                    break;
+                case GiraffeState.WANDER_TARGET:
+                    sounds.PlayRandom(0, 4);
+                    break;
+                case GiraffeState.NOTICE_TARGET:
+                    sounds.PlayRandom(4, 7);
+                    break;
+                case GiraffeState.TARGET:
+                    sounds.PlayRandom(4, 7);
+                    break;
+            }
+        }
     }
 }
