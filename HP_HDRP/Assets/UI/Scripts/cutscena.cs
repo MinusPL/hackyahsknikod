@@ -9,6 +9,11 @@ public class cutscena : MonoBehaviour
     
     float time = 6f;
 
+    private void Start()
+    {
+        canva.SetActive(true);
+    }
+
     private void Update()
     {
         if (time >= 0)
