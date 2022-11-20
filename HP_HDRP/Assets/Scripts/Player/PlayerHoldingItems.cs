@@ -40,10 +40,13 @@ public class PlayerHoldingItems : PlayerComponent
         if(leavesAvaliable){
             if (Input.GetMouseButtonUp(0))
             {
+                if (Physics.Raycast(player.Camera.transform.position, transform.forward, out var hit, 2))
                 // throw leaves
-                var leaves = Instantiate(leavesPrefab, transform.position + Vector3.up + transform.forward * 1.6f, transform.rotation);
-                leaves.GetComponent<Rigidbody>().velocity = 10 * transform.forward;
-                player.Inventory.leaves_amount -= leavesRequired;
+                {
+                    var leaves = Instantiate(leavesPrefab, transform.position + Vector3.up + transform.forward * 1.6f, transform.rotation);
+                    leaves.GetComponent<Rigidbody>().velocity = 10 * transform.forward;
+                    player.Inventory.leaves_amount -= leavesRequired;
+                }
             }
         }
         #endregion
