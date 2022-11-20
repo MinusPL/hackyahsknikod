@@ -3,7 +3,37 @@ guid: cff289de2599bab48b5ba27a6a251f84
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: book_shelf
+    second: {fileID: 2100000, guid: c7ff4bdbd871c2d42a19e82f9e455ee5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: books
+    second: {fileID: 2100000, guid: d6553601568a8ab488229aa7e107a399, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: library_build
+    second: {fileID: 2100000, guid: ea35050160fe3934b9e4050659025419, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: library_floor
+    second: {fileID: 2100000, guid: d0ef2b854c2a1f147b7a9b324dd71d40, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: stone_angle
+    second: {fileID: 2100000, guid: d66793aab65d2ae4786627b17cdde3e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tables
+    second: {fileID: 2100000, guid: 7a9c214bc2527994b865cd27de45392c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
