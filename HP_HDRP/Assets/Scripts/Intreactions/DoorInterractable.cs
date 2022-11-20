@@ -10,12 +10,25 @@ public class DoorInterractable : Interractable
     Transform rightDoor;
 
     [SerializeField]
+    GameObject lock1;
+    [SerializeField]
+    GameObject lock2;
+    [SerializeField]
+    GameObject lock3;
+    [SerializeField]
+    GameObject lock4;
+    [SerializeField]
+    GameObject lock5;
+
+    [SerializeField]
     float rotationSpeed = 50f;
 
     bool rotating = false;
     bool rotated = false;
 
     float accumulatedRotation = 0f;
+
+    int unlocked = 5;
 
     private void Update()
     {
@@ -35,6 +48,29 @@ public class DoorInterractable : Interractable
 
     public override void Interract()
     {
-        if (!rotated) rotating = true;
+        if (!rotated && unlocked <= 0) rotating = true;
+    }
+
+    public void Unlock(int i)
+    {
+        switch(i)
+        {
+            case 1:
+                lock1.SetActive(false);
+                break;
+            case 2:
+                lock2.SetActive(false);
+                break;
+            case 3:
+                lock3.SetActive(false);
+                break;
+            case 4:
+                lock4.SetActive(false);
+                break;
+            case 5:
+                lock5.SetActive(false);
+                break;
+        }
+        unlocked--;
     }
 }

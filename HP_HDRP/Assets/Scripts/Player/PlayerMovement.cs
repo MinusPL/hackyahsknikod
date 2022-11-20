@@ -57,24 +57,30 @@ public class PlayerMovement : PlayerComponent
 
     private void Update()
     {
-        float axisH = Input.GetAxis("Horizontal");
-        float axisV = Input.GetAxis("Vertical");
-        float axisMouseX = Input.GetAxis("Mouse X");
-        float axisMouseY = Input.GetAxis("Mouse Y");
-
-        Rotate(axisMouseX, axisMouseY);
-        Move(axisH, axisV);
-
-        if (!(isSprinting && canSprint))
+        if (!GlobalManager.pause)
         {
-            if (sprintStamina >= sprintMaxValue)
+            float axisH = Input.GetAxis("Horizontal");
+            float axisV = Input.GetAxis("Vertical");
+            float axisMouseX = Input.GetAxis("Mouse X");
+            float axisMouseY = Input.GetAxis("Mouse Y");
+
+            Rotate(axisMouseX, axisMouseY);
+            if (!GlobalManager.blockPlayerMovement)
             {
-                sprintStamina = sprintMaxValue;
-                if (!canSprint) canSprint = true;
-            } 
-            else
-            {
-                sprintStamina += sprintRegenRate * Time.deltaTime;
+                Move(axisH, axisV);
+
+                if (!(isSprinting && canSprint))
+                {
+                    if (sprintStamina >= sprintMaxValue)
+                    {
+                        sprintStamina = sprintMaxValue;
+                        if (!canSprint) canSprint = true;
+                    }
+                    else
+                    {
+                        sprintStamina += sprintRegenRate * Time.deltaTime;
+                    }
+                }
             }
         }
     }
