@@ -479,6 +479,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 968068399987614561, guid: 98b267841f30ddf4093f64472e09b9ad,
+        type: 3}
+      propertyPath: red_frog_amount
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 968068399987614561, guid: 98b267841f30ddf4093f64472e09b9ad,
+        type: 3}
+      propertyPath: blue_frog_amount
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 968068399987614561, guid: 98b267841f30ddf4093f64472e09b9ad,
+        type: 3}
+      propertyPath: green_frog_amount
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2734210209120680818, guid: 98b267841f30ddf4093f64472e09b9ad,
         type: 3}
       propertyPath: m_RootOrder
@@ -1144,7 +1159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1018145899
 MonoBehaviour:
   m_ObjectHideFlags: 0

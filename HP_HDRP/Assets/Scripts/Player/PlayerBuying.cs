@@ -9,6 +9,7 @@ public class PlayerBuying : PlayerComponent
 {
     Shaman shaman;
     public UnityEvent OnShamanClicked;
+    public UnityEvent OnStoreLeave;
     public UnityEvent OnBought;
     bool pointingAtShaman;
 
@@ -24,13 +25,27 @@ public class PlayerBuying : PlayerComponent
     }
 
     private void Update() {
-        if (Input.GetMouseButtonUp(1) && pointingAtShaman)
+        if (pointingAtShaman)
         {
-            // open shaman ui
-            player.controlable = false;
-            Cursor.lockState = CursorLockMode.None;
-            OnShamanClicked.Invoke();
+            if (Input.GetMouseButtonUp(1))
+            {
+                // open shaman ui
+                player.controlable = false;
+                Cursor.lockState = CursorLockMode.None;
+                OnShamanClicked.Invoke();
+            }
+
+            if (!player.controlable)
+            {
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    player.controlable = true;
+                    Cursor.lockState = CursorLockMode.Locked;
+                    OnStoreLeave.Invoke();
+                }
+            }
         }
+        
     }
 
     public void Buy(int item)
