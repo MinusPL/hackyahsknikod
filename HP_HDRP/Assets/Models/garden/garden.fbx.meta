@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0c5f8616f8ddc5c44b44009bf093d294
+guid: f205d9a2c28f3b94a8cd9d9617a894ac
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -8,22 +8,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: building
-    second: {fileID: 2100000, guid: 4b61cc030d8d9f74cb51c2b3cb5b4035, type: 2}
+    second: {fileID: 2100000, guid: 04b8de84e89e9de40ab33520fafa45fa, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: fontain
-    second: {fileID: 2100000, guid: f8b9ff9fd2b2d3b4ea1dac98c873f210, type: 2}
+    second: {fileID: 2100000, guid: bc550c709701322439bfdbc9e6161d3d, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: garden_floor
-    second: {fileID: 2100000, guid: cb81bbb0f627b9f4395951c078157754, type: 2}
+    second: {fileID: 2100000, guid: 55269af3c01f6b84a8f01cf349bb09d1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: plants
-    second: {fileID: 2100000, guid: 7d222b67774cab4489a0483241099315, type: 2}
+    second: {fileID: 2100000, guid: 9080dc107452e3f4584c0203e0bff33e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

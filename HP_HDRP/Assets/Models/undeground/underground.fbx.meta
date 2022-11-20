@@ -3,7 +3,22 @@ guid: 1208d730b64148847a57bc3665de94c1
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: barrels
+    second: {fileID: 2100000, guid: 3f244c6defb9dfd4aa8a04980ce1636d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: undeground_floor
+    second: {fileID: 2100000, guid: e638b76ecfc72344689c5cedbe8f7f2a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: underground
+    second: {fileID: 2100000, guid: d7bf12aa5a83c4545b28a60e096eab17, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
