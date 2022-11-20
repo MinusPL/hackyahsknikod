@@ -8,6 +8,8 @@ public class BasePlayer : MonoBehaviour
     [SerializeField] private PlayerMovement movement;
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private Camera camera;
+    [SerializeField] float jumpscareCooldown;
+    public float jumpscareTimer {get; private set;}
 
     public bool controlable;
 
@@ -24,8 +26,11 @@ public class BasePlayer : MonoBehaviour
         controlable = true;
     }
 
+    public void ResetJumpscareTimer() => jumpscareTimer = 150;
+
     void Update()
     {
+        jumpscareTimer -= Time.deltaTime;
         if (Vector3.Distance(transform.position, giraffe.transform.position) < 3)
         {
             StartCoroutine(GameOver());
