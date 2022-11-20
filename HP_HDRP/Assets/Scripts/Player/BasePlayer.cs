@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PlayerMovement))]
 public class BasePlayer : MonoBehaviour
 {
+    [SerializeField] UnityEvent OnGameOver;
     [SerializeField] private PlayerMovement movement;
     [SerializeField] private PlayerInventory inventory;
     [SerializeField] private Camera camera;
@@ -46,6 +48,10 @@ public class BasePlayer : MonoBehaviour
             transform.position = inventory.respawnPos;
             inventory.hasTotem = false;
             controlable = true;
+        }
+        else{
+            Cursor.lockState = CursorLockMode.None;
+            OnGameOver.Invoke();
         }
     }
 }
